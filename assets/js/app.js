@@ -27,7 +27,59 @@ $(document).ready(function () {
   if (page === "deposit") initDeposit();
   if (page === "sendmoney") initSendMoney();
   if (page === "transactions") initTransactions();
+  if (page === "withdraw") initWithdraw();
+
 });
+
+/* =========================
+   Pantalla: Retiro
+========================= */
+function initWithdraw() {
+  const email = getCurrentUser();
+  $("#currentBalance").text(formatCLP(getBalance(email)));
+
+  $("#withdrawForm").submit(function (e) {
+    e.preventDefault();
+
+    const $amount = $("#withdrawAmount");
+    const $btn = $(this).find("button[type='submit']");
+    const amount = Number($amount.val());
+
+    markInvalid($amount, false);
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+      markInvalid($amount, true);
+      showAlert("#alertWithdraw", "danger", "Ingresa un monto válido mayor a 0.");
+      return;
+    }
+
+    const current = getBalance(email);
+
+    if (amount > current) {
+      markInvalid($amount, true);
+      showAlert("#alertWithdraw", "danger", "Saldo insuficiente para realizar el retiro.");
+      return;
+    }
+
+    setButtonLoading($btn, true, "Realizar retiro");
+
+    const newBalance = current - amount;
+    setBalance(email, newBalance);
+
+    addTransaction(email, {
+      tipo: "retiro",
+      titulo: "Retiro",
+      amount: -amount,
+      datetime: nowStamp()
+    });
+
+    $("#withdrawInfo").text(`Monto retirado: ${formatCLP(amount)}`);
+    showAlert("#alertWithdraw", "success", "Retiro realizado. Volviendo al menú...");
+
+    setTimeout(() => window.location.href = "menu.html", 1500);
+  });
+}
+
 
 /* =========================
    Helpers UI
@@ -298,6 +350,30 @@ function initMenu() {
     showAlert("#alertMenu", "info", "Redirigiendo a Últimos Movimientos...");
     setTimeout(() => window.location.href = "transactions.html", 600);
   });
+    // Botón y navbar: Retirar
+  $("#goWithdraw, #navWithdraw").off("click").on("click", function (e) {
+    e.preventDefault();
+    showAlert("#alertMenu", "info", "Redirigiendo a Retirar...");
+    setTimeout(() => window.location.href = "withdraw.html", 600);
+  });
+
+  // Navbar: Depositar
+  $("#navDeposit").off("click").on("click", function (e) {
+    e.preventDefault();
+    $("#goDeposit").trigger("click");
+  });
+
+  // Navbar: Enviar
+  $("#navSend").off("click").on("click", function (e) {
+    e.preventDefault();
+    $("#goSend").trigger("click");
+  });
+
+  // Navbar: Movimientos
+  $("#navTx").off("click").on("click", function (e) {
+    e.preventDefault();
+    $("#goTx").trigger("click");
+  });
 }
 
 
@@ -357,6 +433,56 @@ function initSendMoney() {
 
   // Cargar contactos
   renderContactsSelect(email);
+    // Autocompletar (sugerencias mientras escribe)
+  $("#searchTerm").on("input", function () {
+    const term = $(this).val().trim().toLowerCase();
+    const contacts = getContacts(email);
+    const $box = $("#suggestions");
+
+    if (!term) {
+      $box.addClass("d-none").empty();
+      return;
+    }
+
+    const matches = contacts
+      .map((c, i) => ({ c, i }))
+      .filter(x =>
+        x.c.nombre.toLowerCase().includes(term) ||
+        (x.c.alias && x.c.alias.toLowerCase().includes(term))
+      )
+      .slice(0, 6);
+
+    if (matches.length === 0) {
+      $box.html(`<button type="button" class="list-group-item list-group-item-action disabled">Sin coincidencias</button>`)
+          .removeClass("d-none");
+      return;
+    }
+
+    const html = matches.map(x => {
+      const alias = x.c.alias ? ` • ${x.c.alias}` : "";
+      return `
+        <button type="button" class="list-group-item list-group-item-action" data-index="${x.i}">
+          <strong>${x.c.nombre}</strong><span class="text-muted">${alias}</span><br>
+          <small class="text-muted">${x.c.banco}</small>
+        </button>`;
+    }).join("");
+
+    $box.html(html).removeClass("d-none");
+  });
+
+  // Click en sugerencia: selecciona contacto y habilita enviar
+  $("#suggestions").on("click", "button[data-index]", function () {
+    const idx = $(this).data("index");
+    $("#contactSelect").val(String(idx)).trigger("change");
+    $("#suggestions").addClass("d-none").empty();
+  });
+
+  // Ocultar sugerencias al salir del campo
+  $(document).on("click", function (e) {
+    const clickedInside = $(e.target).closest("#suggestions, #searchTerm").length > 0;
+    if (!clickedInside) $("#suggestions").addClass("d-none").empty();
+  });
+
 
   // Mostrar botón enviar si hay selección
   $("#contactSelect").on("change", function () {

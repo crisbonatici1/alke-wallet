@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alke Wallet - Retiro</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body data-page="withdraw">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-7 col-lg-5">
+        <div class="card card-shadow p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1 class="brand-title m-0">Alke Wallet</h1>
+            <a class="btn btn-outline-primary btn-sm" href="menu.html">Volver</a>
+          </div>
+
+          <h2 class="h4 mb-3">Retirar</h2>
+
+          <div class="balance-box mb-3">
+            <div class="balance-label">Saldo disponible</div>
+            <span id="currentBalance">$0</span>
+          </div>
+
+          <div id="alertWithdraw"></div>
+
+          <form id="withdrawForm">
+            <div class="mb-3">
+              <label class="form-label" for="withdrawAmount">Monto a retirar</label>
+              <input class="form-control" id="withdrawAmount" type="number" min="1" step="1" placeholder="Ej: 10000" required>
+              <div class="invalid-feedback">Ingresa un monto válido.</div>
+            </div>
+
+            <button class="btn btn-danger w-100" type="submit">Realizar retiro</button>
+          </form>
+
+          <p id="withdrawInfo" class="mt-3 mb-0 text-muted"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

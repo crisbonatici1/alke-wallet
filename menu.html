@@ -10,6 +10,27 @@
 </head>
 
 <body data-page="menu">
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background: rgba(0,0,0,.18); border-radius: 18px;">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="menu.html">Alke Wallet</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navWallet" aria-controls="navWallet" aria-expanded="false" aria-label="Abrir menú">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navWallet">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#" id="navDeposit">Depositar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="navWithdraw">Retirar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="navSend">Enviar Dinero</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" id="navTx">Movimientos</a></li>
+      </ul>
+
+      <button type="button" class="btn btn-outline-light btn-sm" id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-12 col-md-7 col-lg-6">
@@ -37,6 +58,8 @@
               <button class="btn btn-success" id="goDeposit">Depositar</button>
               <button class="btn btn-warning" id="goSend">Enviar Dinero</button>
               <button class="btn btn-outline-primary" id="goTx">Últimos Movimientos</button>
+              <button class="btn btn-danger" id="goWithdraw">Retirar</button>
+
 
                <button type="button" class="btn btn-outline-danger w-100 mt-2" id="resetDemoBtn">
   Reset demo (borrar datos)
