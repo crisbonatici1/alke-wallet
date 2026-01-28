@@ -261,26 +261,36 @@ function initMenu() {
   $("#welcomeUser").text(user ? `Sesión: ${user.name}` : `Sesión: ${email}`);
   $("#balanceAmount").text(formatCLP(getBalance(email)));
 
-  $("#logoutBtn").click(function () {
+  $("#resetDemoBtn").off("click").on("click", function () {
+    const ok = confirm("¿Seguro que quieres borrar los datos de la demo? Esta acción no se puede deshacer.");
+    if (!ok) return;
+
+    resetDemoData();
+    window.location.href = "login.html";
+  });
+
+  $("#logoutBtn").off("click").on("click", function () {
     clearSession();
     window.location.href = "login.html";
   });
 
-  $("#goDeposit").click(function () {
+  $("#goDeposit").off("click").on("click", function () {
     showAlert("#alertMenu", "info", "Redirigiendo a Depositar...");
     setTimeout(() => window.location.href = "deposit.html", 600);
   });
 
-  $("#goSend").click(function () {
+  $("#goSend").off("click").on("click", function () {
     showAlert("#alertMenu", "info", "Redirigiendo a Enviar Dinero...");
     setTimeout(() => window.location.href = "sendmoney.html", 600);
   });
 
-  $("#goTx").click(function () {
+  $("#goTx").off("click").on("click", function () {
     showAlert("#alertMenu", "info", "Redirigiendo a Últimos Movimientos...");
     setTimeout(() => window.location.href = "transactions.html", 600);
   });
 }
+
+
 
 /* =========================
    Pantalla: Depósito
