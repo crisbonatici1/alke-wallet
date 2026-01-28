@@ -63,3 +63,51 @@ body{
 
 .tx-amount.pos{ color:#198754; font-weight:700; }
 .tx-amount.neg{ color:#dc3545; font-weight:700; }
+/* ===== Mejoras UI (cards + layout) ===== */
+body {
+  background: #f6f7fb;
+}
+
+.card-shadow {
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.brand-title {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transaction-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.tx-title {
+  font-weight: 600;
+}
+
+.tx-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.tx-amount.pos {
+  font-weight: 700;
+  color: #198754;
+}
+
+.tx-amount.neg {
+  font-weight: 700;
+  color: #dc3545;
+}
