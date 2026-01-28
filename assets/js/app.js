@@ -115,11 +115,13 @@ function balanceKey(email) {
 
 function getBalance(email) {
   const raw = localStorage.getItem(balanceKey(email));
-  return raw === null ? 0 : Number(raw);
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : 0;
 }
 
 function setBalance(email, value) {
-  localStorage.setItem(balanceKey(email), String(Number(value)));
+  const n = Number(value);
+  localStorage.setItem(balanceKey(email), String(Number.isFinite(n) ? n : 0));
 }
 
 /* =========================
@@ -308,15 +310,17 @@ function initDeposit() {
 
     markInvalid($amount, false);
 
-    if (isNaN(amount) || amount <= 0) {
+    if (!Number.isFinite(amount) || amount <= 0) {
       markInvalid($amount, true);
       showAlert("#alertDeposit", "danger", "Ingresa un monto válido mayor a 0.");
       return;
     }
 
+    // UX: spinner en el botón
     setButtonLoading($btn, true, "Realizar depósito");
 
-    const newBalance = getBalance(email) + amount;
+    const current = getBalance(email);
+    const newBalance = current + amount;
     setBalance(email, newBalance);
 
     addTransaction(email, {

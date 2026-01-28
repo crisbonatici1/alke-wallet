@@ -111,3 +111,9 @@ body {
   font-weight: 700;
   color: #dc3545;
 }
+#balanceAmount {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
