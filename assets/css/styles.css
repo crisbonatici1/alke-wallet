@@ -1,0 +1,65 @@
+:root{
+  --brand: #0d6efd;
+  --bg: #f5f7fb;
+}
+
+body{
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.brand-title{
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.card-shadow{
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 14px 35px rgba(0,0,0,.10);
+}
+
+.balance-box{
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-amount{
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #198754;
+}
+
+.transaction-list{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.transaction-list li{
+  border-bottom: 1px solid #e9ecef;
+  padding: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.transaction-list li:last-child{
+  border-bottom: none;
+}
+
+.tx-title{
+  font-weight: 700;
+}
+
+.tx-date{
+  font-size: .85rem;
+  color: #6c757d;
+}
+
+.tx-amount.pos{ color:#198754; font-weight:700; }
+.tx-amount.neg{ color:#dc3545; font-weight:700; }
