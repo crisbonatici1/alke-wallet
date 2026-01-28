@@ -1,119 +1,219 @@
+/* =========================================================
+   Alke Wallet - UI Theme (moderno, divertido, responsive)
+   Solo CSS (no rompe tu JS).
+========================================================= */
+
 :root{
-  --brand: #0d6efd;
-  --bg: #f5f7fb;
+  --bg-1: #0ea5e9;          /* celeste */
+  --bg-2: #a78bfa;          /* violeta */
+  --bg-3: #fb7185;          /* rosado */
+  --card: rgba(255,255,255,.78);
+  --card-strong: rgba(255,255,255,.9);
+  --stroke: rgba(255,255,255,.35);
+  --text: #0f172a;          /* slate-900 */
+  --muted: rgba(15,23,42,.65);
+  --shadow: 0 18px 50px rgba(15,23,42,.18);
+  --shadow-2: 0 10px 25px rgba(15,23,42,.14);
+  --radius: 18px;
+  --radius-2: 24px;
 }
 
+/* ---------- Fondo app ---------- */
 body{
-  background: var(--bg);
   min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(1100px 600px at 10% 10%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(900px 500px at 90% 15%, rgba(255,255,255,.25), transparent 55%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2) 55%, var(--bg-3));
 }
 
+/* contenedor más cómodo */
+.container{
+  max-width: 1080px;
+}
+
+/* ---------- Cards ---------- */
+.card.card-shadow{
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.card.card-shadow:hover{
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+
+.p-4{ padding: 1.35rem !important; } /* un poquito más compacto */
+
+/* ---------- Marca ---------- */
 .brand-title{
   font-weight: 800;
   letter-spacing: .2px;
+  margin: 0;
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #fb7185);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.card-shadow{
+.text-muted{ color: var(--muted) !important; }
+
+/* ---------- Inputs ---------- */
+.form-control{
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,.12);
+  padding: .75rem .9rem;
+}
+
+.form-control:focus{
+  border-color: rgba(99,102,241,.55);
+  box-shadow: 0 0 0 .22rem rgba(99,102,241,.18);
+}
+
+.form-label{ font-weight: 600; color: rgba(15,23,42,.82); }
+
+/* ---------- Botones (más “app”) ---------- */
+.btn{
+  border-radius: 14px;
+  padding: .7rem 1rem;
+  font-weight: 700;
+  transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.btn:active{
+  transform: translateY(1px);
+}
+
+.btn-primary{
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
   border: 0;
-  border-radius: 16px;
-  box-shadow: 0 14px 35px rgba(0,0,0,.10);
+  box-shadow: 0 10px 20px rgba(37,99,235,.22);
 }
 
+.btn-success{
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border: 0;
+  box-shadow: 0 10px 20px rgba(34,197,94,.22);
+}
+
+.btn-warning{
+  background: linear-gradient(90deg, #f59e0b, #fb7185);
+  border: 0;
+  color: #111827;
+  box-shadow: 0 10px 20px rgba(245,158,11,.22);
+}
+
+.btn-outline-primary{
+  border: 2px solid rgba(37,99,235,.65);
+  color: #1d4ed8;
+  background: rgba(255,255,255,.35);
+}
+
+.btn-outline-danger{
+  border: 2px solid rgba(239,68,68,.65);
+  background: rgba(255,255,255,.35);
+}
+
+.btn:hover{
+  filter: brightness(1.02);
+  box-shadow: var(--shadow-2);
+}
+
+/* ---------- Alertas ---------- */
+.alert{
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+/* ---------- Menú: saldo ---------- */
 .balance-box{
-  background: #f8f9fa;
-  border-radius: 12px;
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background: var(--card-strong);
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: 0 10px 20px rgba(15,23,42,.08);
 }
 
-.balance-amount{
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #198754;
-}
-
-.transaction-list{
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.transaction-list li{
-  border-bottom: 1px solid #e9ecef;
-  padding: 12px 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.transaction-list li:last-child{
-  border-bottom: none;
-}
-
-.tx-title{
-  font-weight: 700;
-}
-
-.tx-date{
+.balance-label{
   font-size: .85rem;
-  color: #6c757d;
+  color: var(--muted);
+  margin-bottom: 2px;
+  font-weight: 700;
 }
 
-.tx-amount.pos{ color:#198754; font-weight:700; }
-.tx-amount.neg{ color:#dc3545; font-weight:700; }
-/* ===== Mejoras UI (cards + layout) ===== */
-body {
-  background: #f6f7fb;
-}
-
-.card-shadow {
-  border: 0;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
-}
-
-.brand-title {
-  font-weight: 800;
+#balanceAmount{
+  font-size: 1.45rem;
+  font-weight: 900;
   letter-spacing: .2px;
-}
-
-.transaction-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.transaction-list li {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 10px;
-  border-bottom: 1px solid rgba(0,0,0,.06);
-}
-
-.tx-title {
-  font-weight: 600;
-}
-
-.tx-date {
-  font-size: 0.85rem;
-  color: #6c757d;
-}
-
-.tx-amount.pos {
-  font-weight: 700;
-  color: #198754;
-}
-
-.tx-amount.neg {
-  font-weight: 700;
-  color: #dc3545;
-}
-#balanceAmount {
   display: block;
   max-width: 100%;
   overflow-x: auto;
   white-space: nowrap;
+}
+
+/* ---------- Lista de transacciones ---------- */
+#txList{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+#txList li{
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 16px rgba(15,23,42,.08);
+}
+
+.tx-title{
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.tx-date{
+  color: var(--muted);
+  font-size: .85rem;
+  margin-top: 3px;
+}
+
+.tx-amount{
+  font-weight: 900;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.06);
+}
+
+.tx-amount.pos{
+  background: rgba(34,197,94,.16);
+  color: #0f766e;
+}
+
+.tx-amount.neg{
+  background: rgba(239,68,68,.14);
+  color: #b91c1c;
+}
+
+/* ---------- Animación suave entrada ---------- */
+@keyframes popIn{
+  from{ opacity: 0; transform: translateY(8px) scale(.98); }
+  to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card.card-shadow{
+  animation: popIn .35s ease both;
+}
+
+/* ---------- Ajustes móviles ---------- */
+@media (max-width: 576px){
+  .card.card-shadow{ border-radius: 18px; }
+  #balanceAmount{ font-size: 1.25rem; }
 }
