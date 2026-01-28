@@ -263,13 +263,21 @@ function initMenu() {
   $("#welcomeUser").text(user ? `Sesión: ${user.name}` : `Sesión: ${email}`);
   $("#balanceAmount").text(formatCLP(getBalance(email)));
 
-  $("#resetDemoBtn").off("click").on("click", function () {
-    const ok = confirm("¿Seguro que quieres borrar los datos de la demo? Esta acción no se puede deshacer.");
-    if (!ok) return;
+  $("#resetDemoBtn").off("click").on("click", function (e) {
+  e.preventDefault();
 
-    resetDemoData();
-    window.location.href = "login.html";
-  });
+  const ok = confirm("¿Seguro que quieres borrar los datos de la demo? Esta acción no se puede deshacer.");
+  if (!ok) return;
+
+  resetDemoData();
+
+  // Opcional: también corta sesión por si acaso
+  clearSession();
+
+  alert("Datos borrados. Volviendo al login...");
+  window.location.href = "login.html";
+});
+
 
   $("#logoutBtn").off("click").on("click", function () {
     clearSession();
@@ -556,4 +564,12 @@ function renderTxList(email, filter) {
     `;
     $ul.append(item);
   });
+}
+function resetDemoData() {
+  const keysToRemove = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith("aw_")) keysToRemove.push(k);
+  }
+  keysToRemove.forEach(k => localStorage.removeItem(k));
 }
